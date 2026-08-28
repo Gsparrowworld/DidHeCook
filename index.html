@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Did He Cook?</title>
+<link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- Persistent header shown once a room exists -->
+  <header id="gameHeader" class="hidden">
+    <div class="header-left">
+      <span class="logo">🍳 DID HE COOK?</span>
+    </div>
+    <div class="header-right">
+      <span id="phaseTitle" class="phase-title"></span>
+      <span id="timerDisplay" class="timer-display hidden">⏱ <span id="timerValue">--</span>s</span>
+      <span id="connStatus" class="conn-status">●</span>
+    </div>
+  </header>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <main id="main">
+
+    <!-- HOME SCREEN -->
+    <section id="screen-home" class="screen">
+      <div class="card center-card">
+        <h1 class="title-flame">DID HE <span class="cook-word">COOK?</span></h1>
+        <p class="subtitle">A pass-the-prompt cooking party game. Make it up. Vote on it. Find out who cooked.</p>
+
+        <label class="field-label" for="nameInput">Your name</label>
+        <input id="nameInput" maxlength="18" placeholder="Chef Name" autocomplete="off">
+
+        <div id="homeButtons" class="button-row">
+          <button id="hostBtn" class="btn btn-primary">Host a Room</button>
+          <button id="joinBtn" class="btn btn-secondary">Join a Room</button>
+        </div>
+
+        <div id="joinCodeSection" class="hidden">
+          <label class="field-label" for="codeInput">Room Code</label>
+          <input id="codeInput" maxlength="6" placeholder="ABCD" autocomplete="off" style="text-transform:uppercase; letter-spacing:.2em; text-align:center;">
+          <div class="button-row">
+            <button id="confirmJoinBtn" class="btn btn-primary">Join</button>
+            <button id="cancelJoinBtn" class="btn btn-ghost">Back</button>
+          </div>
+        </div>
+
+        <p id="homeError" class="error-text hidden"></p>
+      </div>
+    </section>
+
+    <!-- LOBBY SCREEN -->
+    <section id="screen-lobby" class="screen hidden">
+      <div class="card">
+        <h2>Room Code</h2>
+        <div id="roomCodeDisplay" class="room-code">------</div>
+        <p class="hint">Share this code so others can join.</p>
+
+        <h3>Chefs in the kitchen (<span id="playerCount">0</span>)</h3>
+        <ul id="playerList" class="player-list"></ul>
+
+        <div id="hostSettings" class="hidden settings-box">
+          <h3>Room Settings</h3>
+          <label class="field-label">Round timer: <span id="timerValueLabel">60</span>s</label>
+          <input id="timerSetting" type="range" min="20" max="180" step="5" value="60">
+
+          <label class="field-label">Max players: <span id="maxPlayersValueLabel">8</span></label>
+          <input id="maxPlayersSetting" type="range" min="2" max="12" step="1" value="8">
+
+          <button id="startGameBtn" class="btn btn-primary" disabled>Start Game</button>
+          <p class="hint">Need at least 2 chefs to start.</p>
+        </div>
+
+        <p id="lobbyClientHint" class="hint hidden">Waiting for the host to start the game…</p>
+      </div>
+    </section>
+
+    <!-- PROMPTS SCREEN (Phase 1) -->
+    <section id="screen-prompts" class="screen hidden">
+      <div class="card">
+        <h2>Set the Challenge</h2>
+        <p class="hint">Write an <strong>ingredient prompt</strong> (a theme other chefs will pull ingredients from) and a <strong>food prompt</strong> (a dish someone will have to build).</p>
+        <form id="promptsForm">
+          <label class="field-label" for="ingredientPromptInput">Ingredient prompt</label>
+          <input id="ingredientPromptInput" maxlength="80" placeholder="e.g. ingredients you'd find in an abandoned house" required>
+
+          <label class="field-label" for="foodPromptInput">Food prompt</label>
+          <input id="foodPromptInput" maxlength="60" placeholder="e.g. pizza" required>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <p id="promptsWaiting" class="hint hidden"></p>
+      </div>
+    </section>
+
+    <!-- INGREDIENTS SCREEN (Phase 2) -->
+    <section id="screen-ingredients" class="screen hidden">
+      <div class="card">
+        <h2>Fill the Pantry</h2>
+        <p class="hint">Someone else's ingredient prompt:</p>
+        <div id="assignedIngredientPrompt" class="prompt-box"></div>
+        <p class="hint">List 6 ingredients that fit this prompt.</p>
+        <form id="ingredientsForm">
+          <div id="ingredientInputs" class="ingredient-grid"></div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <p id="ingredientsWaiting" class="hint hidden"></p>
+      </div>
+    </section>
+
+    <!-- COMBINE SCREEN (Phase 3) -->
+    <section id="screen-combine" class="screen hidden">
+      <div class="card">
+        <h2>Cook It Up</h2>
+        <p class="hint">Your food prompt:</p>
+        <div id="assignedFoodPrompt" class="prompt-box"></div>
+        <p class="hint">Pick 2 or more ingredients from the pool below to combine:</p>
+        <div id="ingredientPool" class="chip-pool"></div>
+
+        <label class="field-label">Selected ingredients</label>
+        <div id="selectedIngredients" class="chip-pool selected-pool"></div>
+
+        <form id="combineForm">
+          <label class="field-label" for="dishNameInput">Name your dish</label>
+          <input id="dishNameInput" maxlength="40" placeholder="e.g. Haunted Hearth Pizza" required>
+          <label class="field-label" for="dishDescInput">How did you cook it?</label>
+          <textarea id="dishDescInput" maxlength="200" rows="2" placeholder="Explain your masterpiece..."></textarea>
+          <button type="submit" class="btn btn-primary">Submit Dish</button>
+        </form>
+        <p id="combineWaiting" class="hint hidden"></p>
+      </div>
+    </section>
+
+    <!-- VOTING SCREEN -->
+    <section id="screen-voting" class="screen hidden">
+      <div class="card">
+        <h2>Did They Cook?</h2>
+        <p class="hint">Vote for the best dish. You can't vote for your own.</p>
+        <div id="dishList" class="dish-list"></div>
+        <button id="submitVoteBtn" class="btn btn-primary" disabled>Submit Vote</button>
+        <p id="votingWaiting" class="hint hidden"></p>
+      </div>
+    </section>
+
+    <!-- RESULTS SCREEN -->
+    <section id="screen-results" class="screen hidden">
+      <div class="card">
+        <h2>Results</h2>
+        <div id="winnerBanner" class="winner-banner"></div>
+        <div id="resultsList" class="dish-list"></div>
+        <button id="playAgainBtn" class="btn btn-primary hidden">Play Again</button>
+        <p id="resultsClientHint" class="hint hidden">Waiting for the host…</p>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="./assets/peerjs.min.js"></script>
+<script src="./assets/game.js"></script>
+</body>
+</html>
