@@ -19,3 +19,11 @@ as v2. Game synchronization was changed separately:
 Supabase Realtime and public channel access should remain configured exactly as
 they were for the working v2 build.
 \n\nV6 CHANGES\n- Round 2 now uses six separate ingredient dropdowns instead of a textarea.\n- Each slot has its own ingredient selector.\n- Duplicate selections are prevented.\n- Submitting takes the player to a dedicated waiting screen; the next round only appears after everyone submits (or times out).\n
+V7 CHANGES
+- Round 2 now has SIX separate SELECT input fields, one for each ingredient.
+- Round 2 shows BOTH the ingredient prompt and the food item prompt from the other player.
+- Players choose six distinct ingredients from dropdown selectors; they do not type a list.
+- Round 3 now presents the eight supplied ingredients as individual selectable checkboxes.
+- Players actively choose which supplied ingredients to use for the food item.
+- The chef pitch is optional and no longer replaces ingredient selection.
+- Waiting screens remain after submission.
