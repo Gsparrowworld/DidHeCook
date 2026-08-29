@@ -18,3 +18,4 @@ as v2. Game synchronization was changed separately:
 
 Supabase Realtime and public channel access should remain configured exactly as
 they were for the working v2 build.
+\n\nV6 CHANGES\n- Round 2 now uses six separate ingredient dropdowns instead of a textarea.\n- Each slot has its own ingredient selector.\n- Duplicate selections are prevented.\n- Submitting takes the player to a dedicated waiting screen; the next round only appears after everyone submits (or times out).\n
