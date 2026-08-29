@@ -1,42 +1,36 @@
-# Did he cook — cross-device multiplayer
+# Did he cook — kitchen themed multiplayer v3
 
-This build fixes the multiplayer form-reset problem and makes progression automatic.
+This build fixes the major synchronization issue in the previous build.
 
-## What changed
+Key changes:
+- Non-host submissions are sent to the host without replacing the non-host's
+  active page with the host's full state.
+- Incoming state messages only cause a full render when the GAME PHASE changes.
+  Submission/status updates refresh only the player-status area.
+- Each client has its own local timer. A submission from another player cannot
+  reset that client's timer.
+- Timer expiry submits a default answer if the player has not submitted, so the
+  game cannot get permanently stuck at 00:00.
+- Everyone can see submission status for everyone else.
+- The host sees joining players through Presence plus an explicit hello/state
+  handshake.
+- All clients automatically progress when the host detects every player has
+  submitted. The host does not need to press Next.
+- Kitchen-themed visual design.
 
-- Typing in Round 1/2/3 is no longer destroyed when another player submits.
-- The timer does not restart just because another player submitted.
-- Everyone sees a live player list showing Thinking / Submitted.
-- The host sees everyone in the lobby.
-- A non-host can join from another device and remains connected through Supabase Realtime.
-- Everyone automatically moves to the next round when all connected players have submitted.
-- The host does not need to press a Next button.
-- Presence tracks connected players; Broadcast carries game events/state.
+SUPABASE:
+1. In Supabase, open Realtime -> Settings.
+2. Realtime must be enabled.
+3. Public channel access must be enabled for this no-login client.
+4. No database tables are required.
+5. Never put a secret/service_role key in the browser.
 
-## Supabase
+DEPLOY:
+Keep index.html at the root and the assets folder beside it.
+The game uses relative local asset paths. It loads supabase-js from jsDelivr.
+For an offline/no-network version, bundle supabase-js locally.
 
-1. Open the Supabase project.
-2. Realtime -> Settings.
-3. Ensure Realtime is enabled.
-4. Ensure public channel access is enabled for this build.
-5. No database tables are required.
-6. Never put a secret/service_role key in the browser.
-
-The browser uses the supplied publishable key in assets/config.js.
-
-## Deploy
-
-Put index.html at the repository root and the assets folder beside it.
-Deploy the folder to GitHub Pages, Netlify, Cloudflare Pages, or another static HTTPS host.
-
-The HTML references local ./assets files. The Supabase JavaScript client is loaded from
-jsDelivr in index.html; jsDelivr supports cross-origin browser loading.
-
-## Test
-
-Device A: Create Room -> copy code.
-Device B: open the same deployed site -> enter code -> Join Room.
-Device A should show Device B in the lobby.
-Both players Ready -> host starts.
-Each player submits independently. Other players' submission status updates without
-redrawing the active form. Once everyone submits, everyone advances automatically.
+IMPORTANT:
+This project uses Supabase as the realtime transport. The GitHub Pages site is
+still a static frontend, but the actual multiplayer communication is handled
+by Supabase Realtime.
