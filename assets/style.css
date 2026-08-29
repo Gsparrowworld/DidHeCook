@@ -3,3 +3,15 @@
 .challenge-food{margin:18px 0;padding:16px;border:3px solid #ad3e29;border-radius:10px;background:#f4dfbd;text-align:center}.food-prompt{font-size:clamp(30px,5vw,48px);font-weight:900;color:#5a3421;margin-top:8px;text-transform:capitalize}.ingredient-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.ingredient-slot{background:#f1e1c9;border:2px solid #c4a27d;border-radius:9px;padding:12px}.ingredient-slot label{display:block;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#795d47;margin-bottom:6px}.ingredient-slot select{width:100%;border:2px solid #c4a27d;border-radius:8px;background:#fffdf7;padding:12px;font:inherit;color:#33251c;outline:none;cursor:pointer}.ingredient-slot select:focus{border-color:#ad3e29;box-shadow:0 0 0 3px #ad3e2922}.choice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:15px 0}.choice{display:flex;align-items:center;gap:10px;padding:13px;border:2px solid #c4a27d;border-radius:9px;background:#fff8e8;cursor:pointer;font-weight:900}.choice:has(input:checked){background:#ead5ae;border-color:#ad3e29;box-shadow:0 0 0 2px #ad3e2933}.choice input{width:20px;height:20px;accent-color:#ad3e29}.choice span{text-transform:capitalize}@media(max-width:650px){.ingredient-grid,.choice-grid{grid-template-columns:1fr}}
 
 .ingredient-slot input.ing-input{width:100%;border:2px solid #c4a27d;border-radius:8px;background:#fffdf7;padding:12px;font:inherit;color:#33251c;outline:none}.ingredient-slot input.ing-input:focus{border-color:#ad3e29;box-shadow:0 0 0 3px #ad3e2922}.ingredient-slot{background:#f1e1c9;border:2px solid #c4a27d;border-radius:9px;padding:12px}
+
+/* V9 - explicit separate text fields and clickable ingredient choices */
+.ingredient-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:18px 0}
+.ingredient-slot{background:#f1e1c9;border:2px solid #c4a27d;border-radius:10px;padding:12px}
+.ingredient-slot label{display:block;font-size:10px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#795d47;margin-bottom:7px}
+.ingredient-slot .ing-input{display:block;width:100%;box-sizing:border-box;border:2px solid #c4a27d;border-radius:8px;background:#fffdf7;padding:12px;font:inherit;color:#33251c;outline:none}
+.ingredient-slot .ing-input:focus{border-color:#ad3e29;box-shadow:0 0 0 3px #ad3e2933}
+.choice-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:18px 0}
+.choice{display:flex;align-items:center;gap:12px;padding:15px;border:2px solid #c4a27d;border-radius:10px;background:#fff8e8;cursor:pointer;font-weight:900}
+.choice:has(input:checked){background:#ead5ae;border-color:#ad3e29;box-shadow:0 0 0 3px #ad3e2922}
+.choice input{width:22px;height:22px;cursor:pointer}
+@media(max-width:650px){.ingredient-grid,.choice-grid{grid-template-columns:1fr}}

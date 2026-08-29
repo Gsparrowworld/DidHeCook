@@ -42,3 +42,9 @@ Round 3:
 - Player receives 8 ingredients assembled from other players' Round 2 submissions, excluding their own.
 - Player SELECTS which of those 8 ingredients to use for the dish.
 - The optional chef pitch is supplementary; ingredient selection is required.
+
+V9 EXACT FLOW:
+Round 1: player writes an ingredient prompt AND a food prompt.
+Round 2: player receives ONLY another player's ingredient prompt. They TYPE six ingredients into six separate text input fields. Food prompt is hidden.
+Round 3: player receives a food prompt from another player's Round 1 and 8 randomly shuffled ingredients sourced only from OTHER players' Round 2 answers. They CLICK the checkboxes for the ingredients they want to cook with.
+Voting follows Round 3.
