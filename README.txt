@@ -27,3 +27,18 @@ V7 CHANGES
 - Players actively choose which supplied ingredients to use for the food item.
 - The chef pitch is optional and no longer replaces ingredient selection.
 - Waiting screens remain after submission.
+
+V8 CLARIFICATION / GAME FLOW
+Round 1:
+- Player submits TWO things: an ingredient prompt and a food item prompt.
+
+Round 2:
+- Player receives ONLY another player's ingredient prompt.
+- Player types SIX ingredients into SIX separate input fields.
+- The Round 1 food item is intentionally NOT shown in Round 2.
+
+Round 3:
+- Player receives a random food item prompt taken from another player's Round 1 submission.
+- Player receives 8 ingredients assembled from other players' Round 2 submissions, excluding their own.
+- Player SELECTS which of those 8 ingredients to use for the dish.
+- The optional chef pitch is supplementary; ingredient selection is required.
